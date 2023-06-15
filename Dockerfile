@@ -3,7 +3,7 @@ FROM ubuntu:jammy
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install --no-install-recommends -y python3-pip ddgr sudo apt-utils nmap mrt \
+RUN apt-get update && apt-get install --no-install-recommends -y python3-pip ddgr sudo apt-utils nmap \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt requirements.txt
