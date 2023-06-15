@@ -1,4 +1,4 @@
-# AI Chatbot
+# TerminalAssistantChat
 
 This project is a chatbot that uses OpenAI's GPT-3/4 model for generating responses. The model is capable of handling function calling and executing tasks based on instructions provided in the conversation. The chatbot can be run as a console-based chat application or as a Telegram bot.
 
@@ -10,6 +10,7 @@ This project is a chatbot that uses OpenAI's GPT-3/4 model for generating respon
 - Python 3.7 or higher
 - OpenAI Python package
 - Telegram Python package
+- Docker
 
 ### Environment Variables
 
@@ -36,6 +37,27 @@ To run the application as a Telegram bot, execute the script with the "telegram"
 
 ```bash
 python main.py telegram
+```
+
+### Running the app in a Docker Container
+
+Before you run the Docker container, you need to ensure that you have set the necessary environment variables in your .env file:
+
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `TG_API_KEY`: Your Telegram API key
+- `TG_ADMIN_CHAT_ID`: The chat ID of the Telegram admin
+- `TG_USER_ACCESS`: A comma-separated list of authorized user IDs
+
+Once the environment variables are set, you can run the application inside a Docker container using the following command:
+
+```bash
+docker-compose up -d
+```
+
+If you want to run the script as Console-based Chat inside the Docker container:
+
+```bash
+docker-compose run bot python3 main.py
 ```
 
 ## License
