@@ -1,0 +1,11 @@
+services:
+  bot:
+    build: .
+    environment:
+      - OPENAI_API_KEY
+      - TG_API_KEY
+      - TG_ADMIN_CHAT_ID
+      - TG_USER_ACCESS
+    volumes:
+      - ${PWD}:/app
+    restart: always

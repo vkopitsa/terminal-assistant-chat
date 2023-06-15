@@ -1,0 +1,4 @@
+openai
+pandas
+bs4
+python-telegram-bot
