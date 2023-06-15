@@ -2,6 +2,7 @@
 
 This project is a chatbot that uses OpenAI's GPT-3/4 model for generating responses. The model is capable of handling function calling and executing tasks based on instructions provided in the conversation. The chatbot can be run as a console-based chat application or as a Telegram bot.
 
+[![asciicast](https://asciinema.org/a/B7OUsOfDIq1th9yGyu33dnG4j.svg)](https://asciinema.org/a/B7OUsOfDIq1th9yGyu33dnG4j)
 
 ## Getting Started
 
