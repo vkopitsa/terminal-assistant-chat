@@ -27,9 +27,14 @@ class MessageSender(Function):
     def get_name(self) -> AnyStr:
         return self.specification.get("name")
 
-    def func(self, data) -> Any:
+    def func(self, data, **kwargs) -> Any:
         msg = data if isinstance(data, str) else data.get("msg")
         url = f"https://api.telegram.org/bot{self.tg_api_key}/sendMessage"
-        data = {"parse_mode": "Markdown", "disable_notification": "true", "chat_id": self.tg_admin_chat_id, "text": msg}
+        data = {
+            "parse_mode": "Markdown",
+            "disable_notification": "true",
+            "chat_id": self.tg_admin_chat_id,
+            "text": msg
+        }
         response = requests.post(url, data=data)
         return "Sent!" if response.status_code == 200 else "Got error!"

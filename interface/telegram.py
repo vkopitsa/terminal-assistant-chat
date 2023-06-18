@@ -18,18 +18,17 @@ class TelegramBot(Interface):
             await update.message.reply_text(f"forbidden: {update.message.from_user.username} [{update.message.from_user.id}]")
             return
 
-        msg = self.provider.process_msg(update.message.text, update=update, context=context)
+        msg = self.provider.process_msg(update.message.text, update=update, context=context, uid=update.message.from_user.id)
         logging.info(f"sent: {msg}")
         if msg == "":
-            msg = "Empty response."
-            return
+            msg = "The request was processed but had no response."
         if isinstance(msg, str) and len(msg) > 4096:
             msg = msg[:4096]
         await update.message.reply_text(msg)
 
     async def clear(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        self.provider.chat_history = self.provider.init_settings[:]
-        await update.effective_message.reply_text("All clear!")
+        self.provider.add_history_message(reset=True, uid=update.message.from_user.id)
+        await update.effective_message.reply_text("History cleaned.")
 
     async def downloader(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         document = update.message.document
@@ -45,7 +44,10 @@ class TelegramBot(Interface):
 
         await file.download_to_drive(f"files/{file_name}")
 
-        self.provider.chat_history.append({"role": "user", "content": f"uploaded file: files/{file_name}"})
+        self.provider.add_history_message(msgs=[{
+            "role": "user",
+            "content": f"uploaded file: files/{file_name}"
+        }], uid=update.message.from_user.id)
 
     def run(self):
         self.app = ApplicationBuilder().token(self.api_key).build()

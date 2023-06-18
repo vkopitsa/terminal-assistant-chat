@@ -1,6 +1,4 @@
-import logging
-import sys
-from io import StringIO
+import asyncio
 
 from typing import Any, AnyStr
 
@@ -26,20 +24,18 @@ class FileSender(Function):
     def get_name(self) -> AnyStr:
         return self.specification.get("name")
 
-    def func(self, data) -> Any:
-        code = data if isinstance(data, str) else data.get("code")
-        logging.warning(f">>> {code}")
+    def func(self, data, **kwargs) -> Any:
+        update = kwargs.get("update")
+        context = kwargs.get("context")
 
-        # Redirect stdout to a string
-        old_stdout = sys.stdout
-        redirected_output = sys.stdout = StringIO()
+        if not update or not context:
+            return ""
 
-        try:
-            exec(code)
-        except Exception as e:
-            logging.error(e)
-        finally:
-            # Reset stdout
-            sys.stdout = old_stdout
+        chat_id = update.message.chat_id
 
-        return redirected_output.getvalue()
+        filepath = data if isinstance(data, str) else data.get("filepath")
+
+        document = open(filepath, 'rb')
+        asyncio.create_task(context.bot.send_document(chat_id, document))
+
+        return ""

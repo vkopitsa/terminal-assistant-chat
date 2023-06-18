@@ -11,6 +11,7 @@ from interface import TelegramBot, Terminal
 TG_API_KEY = os.getenv("TG_API_KEY")
 TG_ADMIN_CHAT_ID = os.getenv("TG_ADMIN_CHAT_ID")
 TG_USER_ACCESS = os.getenv("TG_USER_ACCESS", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo-0613")
 
 
 funcs: List[Function] = [
@@ -22,7 +23,7 @@ funcs: List[Function] = [
     WebsiteContentFetcher(),
 ]
 
-oa = OpenAIChat(funcs=funcs)
+oa = OpenAIChat(funcs=funcs, model=OPENAI_MODEL)
 
 if __name__ == "__main__":
     if "telegram" in sys.argv:

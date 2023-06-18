@@ -31,11 +31,11 @@ class PythonExecutor(Function):
     def get_name(self) -> AnyStr:
         return self.specification.get("name")
 
-    def func(self, data) -> Any:
+    def func(self, data, **kwargs) -> Any:
         code = data if isinstance(data, str) else data.get("code")
         logging.warning(f">>> {code}")
 
-        # Redirect stdout to a string
+        # redirect stdout to a string
         old_stdout = sys.stdout
         redirected_output = sys.stdout = StringIO()
 
@@ -44,7 +44,7 @@ class PythonExecutor(Function):
         except Exception as e:
             logging.error(e)
         finally:
-            # Reset stdout
+            # reset stdout
             sys.stdout = old_stdout
 
         return redirected_output.getvalue()

@@ -18,7 +18,7 @@ This project is a chatbot that uses OpenAI's GPT-3/4 model for generating respon
 
 ### Prerequisites
 
-- Python 3.7 or higher
+- Python 3.10 or higher
 - OpenAI Python package
 - Telegram Python package
 - Docker
@@ -27,10 +27,11 @@ This project is a chatbot that uses OpenAI's GPT-3/4 model for generating respon
 
 Before running the application, you need to set the following environment variables:
 
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `TG_API_KEY`: Your Telegram API key
+- `OPENAI_API_KEY`: OpenAI API key
+- `TG_API_KEY`: Telegram API key
 - `TG_ADMIN_CHAT_ID`: The chat ID of the Telegram admin
 - `TG_USER_ACCESS`: A comma-separated list of authorized user IDs
+- `OPENAI_MODEL`: (Optional) A OpenAI model, default `gpt-3.5-turbo-0613`
 
 ## Usage
 
@@ -54,10 +55,11 @@ python main.py telegram
 
 Before you run the Docker container, you need to ensure that you have set the necessary environment variables in your .env file:
 
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `TG_API_KEY`: Your Telegram API key
+- `OPENAI_API_KEY`: OpenAI API key
+- `TG_API_KEY`: Telegram API key
 - `TG_ADMIN_CHAT_ID`: The chat ID of the Telegram admin
 - `TG_USER_ACCESS`: A comma-separated list of authorized user IDs
+- `OPENAI_MODEL`: (Optional) A OpenAI model, default `gpt-3.5-turbo-0613`
 
 Once the environment variables are set, you can run the application inside a Docker container using the following command:
 

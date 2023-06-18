@@ -28,7 +28,7 @@ class ExpressionExecutor(Function):
     def get_name(self) -> AnyStr:
         return self.specification.get("name")
 
-    def func(self, data) -> Any:
+    def func(self, data, **kwargs) -> Any:
         code = data if isinstance(data, str) else data.get("code")
         logging.warning(f"= {code}\n")
 
