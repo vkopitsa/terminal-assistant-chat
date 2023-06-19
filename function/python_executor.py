@@ -29,7 +29,7 @@ class PythonExecutor(Function):
     }
 
     def get_name(self) -> AnyStr:
-        return self.specification.get("name")
+        return self.specification.get("name", "")
 
     def func(self, data, **kwargs) -> Any:
         code = data if isinstance(data, str) else data.get("code")

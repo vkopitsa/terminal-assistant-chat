@@ -1,5 +1,6 @@
 import logging
 import subprocess
+import os
 from typing import Any, AnyStr
 
 from .function import Function
@@ -27,12 +28,14 @@ class BashExecutor(Function):
     }
 
     def get_name(self) -> AnyStr:
-        return self.specification.get("name")
+        return self.specification.get("name", "")
 
     def func(self, data, **kwargs) -> Any:
         code = data if isinstance(data, str) else data.get("code")
         logging.warning(f"# {code}")
         try:
+            if "files" not in os.getcwd():
+                os.chdir("files/")
             process = subprocess.run(code, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=60)
             if process.stderr:
                 return process.stderr

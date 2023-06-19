@@ -1,3 +1,4 @@
+from typing import Dict, List
 import logging
 import json
 import openai
@@ -6,20 +7,16 @@ from utils import is_json
 
 class OpenAIChat:
     init_settings = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "system", "content": "You have a working directory: files/*"},
-        # {"role": "system", "content": "You must remove any extraneous information that is not essential to your prompt or question or answer. Be concise and focus on the key points."},
-        {"role": "system", "content": "You can execute python code (use print function to show result), expression, bash code, or a terminal command on Ubuntu (how root user, not use sudo)"},
-        # {"role": "system", "content": "You can get the content of a website or URI"},
-        {"role": "system", "content": "You can install missing tool or python module."},
-        {"role": "system", "content": "You can not do things that are dangerous to the OS."},
-        # {"role": "system", "content": "You can send a message to admin"},
-        {"role": "system", "content": "You can get weather from https://api.open-meteo.com/v1/forecast?latitude=:latitude&longitude=:longitude&temperature_unit=celsius&current_weather=true"},
+        {"role": "system", "content": "You are an assistant."},
+        {"role": "system", "content": "You can execute Python code, Bash, and Ubuntu terminal commands as root."},
+        {"role": "system", "content": "You can install tools or Python modules."},
+        {"role": "system", "content": "Avoid actions harmful to the operating system."},
         {"role": "system", "content": "You can search (using Google) with the bash command: \"ddgr -n 3 [search keywords]\""},
-        {"role": "system", "content": "You can process output from any actions. For that, you can use a 'continue' parameter. But only 3 consecutive attempts"},
+        {"role": "system", "content": "Retrieve weather data from: https://api.open-meteo.com/v1/forecast?latitude=:latitude&longitude=:longitude&temperature_unit=celsius&current_weather=true"},
+        {"role": "system", "content": "Fetch public holidays: https://date.nager.at/api/v3/publicholidays/{year}/{country_code}"},
     ]
 
-    _chat_history = {}
+    _chat_history: Dict[int, List] = {}
 
     def __init__(self, model, funcs=[]):
         self.model = model
@@ -33,7 +30,7 @@ class OpenAIChat:
             self._chat_history[uid].extend(msgs)
 
         if len(self._chat_history[uid]) > 10:
-            self._chat_history[uid] = self._chat_history[uid][:9]
+            self._chat_history[uid] = self._chat_history[uid][-9:]
 
     def get_history_message(self, uid=0):
         return self._chat_history[uid]

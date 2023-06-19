@@ -22,7 +22,7 @@ class FileSender(Function):
     }
 
     def get_name(self) -> AnyStr:
-        return self.specification.get("name")
+        return self.specification.get("name", "")
 
     def func(self, data, **kwargs) -> Any:
         update = kwargs.get("update")
@@ -38,4 +38,4 @@ class FileSender(Function):
         document = open(filepath, 'rb')
         asyncio.create_task(context.bot.send_document(chat_id, document))
 
-        return ""
+        return "Done!"

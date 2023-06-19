@@ -3,13 +3,12 @@ import os
 import logging
 from typing import List
 
-from function import Function, BashExecutor, ExpressionExecutor, FileSender, MessageSender, PythonExecutor, WebsiteContentFetcher
+from function import Function, BashExecutor, ExpressionExecutor, FileSender, PythonExecutor, WebsiteContentFetcher
 from providers import OpenAIChat
 from interface import TelegramBot, Terminal
 
 
 TG_API_KEY = os.getenv("TG_API_KEY")
-TG_ADMIN_CHAT_ID = os.getenv("TG_ADMIN_CHAT_ID")
 TG_USER_ACCESS = os.getenv("TG_USER_ACCESS", "")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-3.5-turbo-0613")
 
@@ -18,7 +17,6 @@ funcs: List[Function] = [
     BashExecutor(),
     ExpressionExecutor(),
     FileSender(),
-    MessageSender(TG_API_KEY, TG_ADMIN_CHAT_ID),
     PythonExecutor(),
     WebsiteContentFetcher(),
 ]

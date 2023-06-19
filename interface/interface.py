@@ -2,5 +2,5 @@ from typing import Protocol
 
 
 class Interface(Protocol):
-    def run():
+    def run(self):
         pass

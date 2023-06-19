@@ -1,4 +1,4 @@
-from typing import Any, Protocol, Dict, AnyStr, Optional
+from typing import Any, Protocol, Dict, AnyStr, Union
 
 
 class Function(Protocol):
@@ -7,5 +7,5 @@ class Function(Protocol):
     def get_name(self) -> AnyStr:
         pass
 
-    def func(self, **kwargs: Optional[Any]) -> Any:
+    def func(self, data: Union[str, Dict], **kwargs: dict) -> Any:
         pass

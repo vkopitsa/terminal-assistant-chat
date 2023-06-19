@@ -29,7 +29,6 @@ Before running the application, you need to set the following environment variab
 
 - `OPENAI_API_KEY`: OpenAI API key
 - `TG_API_KEY`: Telegram API key
-- `TG_ADMIN_CHAT_ID`: The chat ID of the Telegram admin
 - `TG_USER_ACCESS`: A comma-separated list of authorized user IDs
 - `OPENAI_MODEL`: (Optional) A OpenAI model, default `gpt-3.5-turbo-0613`
 
@@ -57,7 +56,6 @@ Before you run the Docker container, you need to ensure that you have set the ne
 
 - `OPENAI_API_KEY`: OpenAI API key
 - `TG_API_KEY`: Telegram API key
-- `TG_ADMIN_CHAT_ID`: The chat ID of the Telegram admin
 - `TG_USER_ACCESS`: A comma-separated list of authorized user IDs
 - `OPENAI_MODEL`: (Optional) A OpenAI model, default `gpt-3.5-turbo-0613`
 

@@ -14,6 +14,9 @@ class TelegramBot(Interface):
         self.provider = provider
 
     async def process(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        if not update.message or not update.message.from_user:
+            return
+
         if update.message.from_user.id not in self.user_access:
             await update.message.reply_text(f"forbidden: {update.message.from_user.username} [{update.message.from_user.id}]")
             return
@@ -27,10 +30,16 @@ class TelegramBot(Interface):
         await update.message.reply_text(msg)
 
     async def clear(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        if not update.message or not update.message.from_user or not update.effective_message:
+            return
+
         self.provider.add_history_message(reset=True, uid=update.message.from_user.id)
-        await update.effective_message.reply_text("History cleaned.")
+        await update.effective_message.reply_text("Context cleaned.")
 
     async def downloader(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        if not update.message or not update.message.from_user or update.message.from_user.id not in self.user_access:
+            return
+
         document = update.message.document
         photo = update.message.photo
 

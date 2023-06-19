@@ -4,7 +4,6 @@ services:
     environment:
       - OPENAI_API_KEY
       - TG_API_KEY
-      - TG_ADMIN_CHAT_ID
       - TG_USER_ACCESS
       - OPENAI_MODEL
     volumes:

@@ -28,7 +28,7 @@ class WebsiteContentFetcher(Function):
     }
 
     def get_name(self) -> AnyStr:
-        return self.specification.get("name")
+        return self.specification.get("name", "")
 
     def func(self, data, **kwargs) -> Any:
         url = data if isinstance(data, str) else data.get("url")
